@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import { PageContainer, PageLoading } from '@ant-design/pro-layout';
-import { Card, Alert, Typography, Row, Col, Input, InputNumber, Button, Spacer, Modal, Carousel, Image } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
+import { PageLoading } from '@ant-design/pro-layout';
+import { Row } from 'antd';
 
 
 /** Query Result styled components */

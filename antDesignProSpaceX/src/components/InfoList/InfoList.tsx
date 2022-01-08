@@ -47,7 +47,7 @@ const InfoList: React.FC = ({ limit, missionName, setIsSubmitted, isSubmitted }:
 
 
 
-  const { loading, error, data, refresh } = useQuery(LAUNCHES, {
+  const { loading, error, data } = useQuery(LAUNCHES, {
     variables: { limit, missionName },
   });
 
