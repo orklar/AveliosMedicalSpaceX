@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Collapse, Modal, Carousel, Image, Divider } from 'antd';
+import { Button, Collapse, Modal, Carousel, Image, Divider, Row, Col } from 'antd';
 import { useIntl, FormattedMessage } from 'umi';
 import type LaunchInfoInterface from '../LaunchInfoInterface';
 
@@ -15,7 +15,7 @@ const DetailModal = ({ launchInfoInterface }: { launchInfoInterface: LaunchInfoI
   const [visible, setVisible] = useState(false);
 
   return (
-    <>
+    <Row justify="center">
       <Button type="primary" onClick={() => setVisible(true)}>
         More
       </Button>
@@ -25,14 +25,30 @@ const DetailModal = ({ launchInfoInterface }: { launchInfoInterface: LaunchInfoI
         visible={visible}
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
+        footer={null}
         width={1000}
       >
         <h1>{launchInfo.mission_name}</h1>
 
-        {launchInfo.links.flickr_images.length < 1 ?
-          <img src={"https://live.staticflickr.com/65535/50631642722_3af8131c6f_o.jpg"} alt={"asdf"} width="300px" height="400px" />
-          :
-          <img src={launchInfo.links.flickr_images[0]} alt={"asdf"} width="300px" height="400px" />}
+        <Row justify="center">
+          <Col>
+            {launchInfo.links.flickr_images.length < 1 ?
+              <img src={"https://live.staticflickr.com/65535/50631642722_3af8131c6f_o.jpg"} alt={"asdf"} width="300px" height="400px" />
+              :
+              <img src={launchInfo.links.flickr_images[0]} alt={"asdf"} width="300px" height="400px" />}
+          </Col>
+          <Col>
+            {launchInfo.links.mission_patch ?
+              <img src={launchInfo.links.mission_patch} alt={"Mission Patch"} width="300px" height="400px" />
+              :
+              (
+                launchInfo.links.flickr_images.length < 2 ? <></> :
+                  <img src={launchInfo.links.flickr_images[1]}
+                    alt={"asdf"} width="300px" height="400px" />)}
+            :
+          </Col>
+        </Row>
+
 
         <Divider />
 
@@ -55,7 +71,8 @@ const DetailModal = ({ launchInfoInterface }: { launchInfoInterface: LaunchInfoI
         </Collapse>
 
       </Modal>
-    </>
+    </Row>
+
 
   );
 };
@@ -63,9 +80,6 @@ const DetailModal = ({ launchInfoInterface }: { launchInfoInterface: LaunchInfoI
 export default DetailModal;
 
 const contentStyle = {
-  height: '160px',
-  color: '#fff',
-  lineHeight: '160px',
   textAlign: 'center',
-  background: '#364d79',
+  alignContent: 'center'
 };
