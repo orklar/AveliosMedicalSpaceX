@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Alert, Typography, Row, Col, Input, InputNumber, Button, Spacer, Modal, Carousel, Image } from 'antd';
+import { Button, Collapse, Modal, Carousel, Image, Divider } from 'antd';
 import { useIntl, FormattedMessage } from 'umi';
-import styles from './DetailModal.less';
+import type LaunchInfoInterface from '../LaunchInfoInterface';
 
-const CodePreview: React.FC = ({ children }) => (
-  <pre className={styles.pre}>
-    <code>
-      <Typography.Text copyable>{children}</Typography.Text>
-    </code>
-  </pre>
-);
 
-const DetailModal: React.FC = () => {
+const { Panel } = Collapse;
+
+const DetailModal = ({ launchInfoInterface }: { launchInfoInterface: LaunchInfoInterface }) => {
+  const launchInfo = launchInfoInterface;
   const intl = useIntl();
 
   const onSearch = value => console.log(value);
-  const missionName = "echo"
 
   const [visible, setVisible] = useState(false);
 
@@ -27,33 +20,40 @@ const DetailModal: React.FC = () => {
         More
       </Button>
       <Modal
-        title={"Details for Mission: " + missionName}
+        title={"Details for Mission: " + launchInfo.mission_name}
         centered
         visible={visible}
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
         width={1000}
       >
-        <h2>Launch Informations</h2>
-        <h3>launch_date_local</h3>
-        <h3>launch_success</h3>
-        <h3>site_name_long </h3>
-        <h3>site_name_long </h3>
-        <h3>site_name_long </h3>
-        <h3>site_name_long </h3>
+        <h1>{launchInfo.mission_name}</h1>
 
-        <h2>Links</h2>
-        <h3>Wikipedia</h3>
-        <h3>reddit_campaign</h3>
-        <h3>reddit_launch</h3>
+        {launchInfo.links.flickr_images.length < 1 ?
+          <img src={"https://live.staticflickr.com/65535/50631642722_3af8131c6f_o.jpg"} alt={"asdf"} width="300px" height="400px" />
+          :
+          <img src={launchInfo.links.flickr_images[0]} alt={"asdf"} width="300px" height="400px" />}
 
-        <h2>Rocket Informations</h2>
-        <h3>rocket_name</h3>
-        <h3>rocket_type</h3>
-        <h3>wikipedia</h3>
+        <Divider />
 
-        <h2>Images</h2>
-       
+        <Collapse accordion>
+          <Panel header="Launch Informations" key="1">
+            <h3>{launchInfo.launch_success ? "Launch was successfull!" : "Launch was unsuccessfull!"}</h3>
+            <h3>Local Launch Date: {launchInfo.launch_date_local}</h3>
+            <h3>Full Site Name: {launchInfo.launch_site.site_name_long}</h3>
+          </Panel>
+          <Panel header="Rocket Informations" key="2">
+            <h3>Rocket Name: {launchInfo.rocket.rocket_name}</h3>
+            <h3>Rocket Type: {launchInfo.rocket.rocket_type}</h3>
+          </Panel>
+          <Panel header="Links" key="3">
+            <h3> <a href="Wikipedia">{launchInfo.links.wikipedia}</a> </h3>
+            <h3> <a href="Reddit Campaign">{launchInfo.links.reddit_campaign}</a> </h3>
+            <h3> <a href="Reddit Launch">{launchInfo.links.reddit_launch}</a> </h3>
+
+          </Panel>
+        </Collapse>
+
       </Modal>
     </>
 
@@ -61,16 +61,6 @@ const DetailModal: React.FC = () => {
 };
 
 export default DetailModal;
-
-const textHeader = {
-  margin: '10px 0px 0px 0px',
-  alignContent: 'right'
-};
-
-const filterRowStyle = {
-  margin: '10px 13px 0px 0px',
-  alignContent: 'right'
-};
 
 const contentStyle = {
   height: '160px',
