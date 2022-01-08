@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Row, Col, Typography } from 'antd';
 import { useIntl, FormattedMessage } from 'umi';
@@ -13,82 +13,29 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const CodePreview: React.FC = ({ children }) => (
-  <pre className={styles.pre}>
-    <code>
-      <Typography.Text copyable>{children}</Typography.Text>
-    </code>
-  </pre>
-);
-
-/**
- * 
- * 
- * 
- * 
- * 
- *  <Card>
-        <Alert
-          message={intl.formatMessage({
-            id: 'pages.welcome.alertMessage',
-            defaultMessage: 'Faster and stronger heavy-duty components have been released.',
-          })}
-          type="success"
-          showIcon
-          banner
-          style={{
-            margin: -12,
-            marginBottom: 24,
-          }}
-        />
-        <Typography.Text strong>
-          <FormattedMessage id="pages.welcome.advancedComponent" defaultMessage="Advanced Form" />{' '}
-          <a
-            href="https://procomponents.ant.design/components/table"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            <FormattedMessage id="pages.welcome.link" defaultMessage="Welcome" />
-          </a>
-        </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-table</CodePreview>
-        <Typography.Text
-          strong
-          style={{
-            marginBottom: 12,
-          }}
-        >
-          <FormattedMessage id="pages.welcome.advancedLayout" defaultMessage="Advanced layout" />{' '}
-          <a
-            href="https://procomponents.ant.design/components/layout"
-            rel="noopener noreferrer"
-            target="__blank"
-          >
-            <FormattedMessage id="pages.welcome.link" defaultMessage="Welcome" />
-          </a>
-        </Typography.Text>
-        <CodePreview>yarn add @ant-design/pro-layout</CodePreview>
-      </Card>
-
-      **/
-
 
 
 const Welcome: React.FC = () => {
   const intl = useIntl();
+  const [filterCount, setFilterCount] = useState(5);
+  const [filterText, setFilterText] = useState("");
+  const [isDynamic, setIsDynamic] = useState(false);
+
+
 
   return (
     <ApolloProvider client={client}>
       <PageContainer>
         <Row>
           <Col span={6}>
-            <Card className={styles.cardStyling} title="Search" extra={<a href="#">More</a>}>
-              <SearchBox></SearchBox>
+            <Card className={styles.cardStyling} title="Search" extra={<a href="/welcome">Reset & Refresh</a>}>
+              <SearchBox
+                setFilterCount={setFilterCount} setFilterText={setFilterText} />
             </Card>
           </Col>
           <Col span={18}>
-            <Card className={styles.cardStyling} title="Results" extra={<a href="#">More</a>} >
-              <InfoList />
+            <Card className={styles.cardStyling} title="Results" >
+              <InfoList limit={filterCount} missionName={filterText} />
             </Card>
           </Col>
         </Row>
