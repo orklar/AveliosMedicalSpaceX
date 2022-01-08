@@ -4,6 +4,7 @@ import { Card, Alert, Typography, Row, Col, Input, InputNumber, Button } from 'a
 import { useIntl, FormattedMessage } from 'umi';
 import styles from './MissionSummaryCard.less';
 import DetailModal from '../DetailModal/DetailModal';
+import type LaunchInfoInterface from '../LaunchInfoInterface';
 
 
 const CodePreview: React.FC = ({ children }) => (
@@ -14,23 +15,33 @@ const CodePreview: React.FC = ({ children }) => (
   </pre>
 );
 
-const MissionSummaryCard = ({ }) => {
-  //console.log(result);
-  //const { mission_name, launch_date_local, launch_site, launch_year, launch_success, links, rocket, details } = result;
+const MissionSummaryCard = ({ result }: { result: LaunchInfoInterface }) => {
+  console.log(result);
+  const LaunchInfo = result;
+  console.log(LaunchInfo);
+  const Image = LaunchInfo.links.flickr_images.length === 0 ?
+    "https://live.staticflickr.com/65535/50631642722_3af8131c6f_o.jpg" :
+    LaunchInfo.links.flickr_images[0]
 
   return (
-    <Card>
-      <h1>Mission Name: Echo</h1>
-      <h4>Mission Date: 12.12.2012</h4>
+    <Card className={styles.card}>
+      <Row justify="center">
+        <Col>
 
-      <img src={"https://live.staticflickr.com/65535/50631642722_3af8131c6f_o.jpg"} alt={"asdf"} width="299px" />
 
-      <h3>Success: True</h3>
-      <h3>Site Name: Echo</h3>
+          <h1 className={styles.h1}>Mission Name: {LaunchInfo.mission_name}</h1>
+          <h2 className={styles.h2}>Mission Date: {LaunchInfo.launch_date_local}</h2>
+
+          <img src={Image} alt={"asdf"} width="300px" height="400px" />
+        </Col>
+      </Row>
+
+      <h3 className={styles.h3}>Mission Successfull: {String(LaunchInfo.launch_success)}</h3>
+      <h3 className={styles.h3}>Site Name: {LaunchInfo.launch_site.site_name}</h3>
 
       <Row justify="end">
         <Col>
-          <DetailModal />
+          <DetailModal launchInfoInterface={LaunchInfo} />
         </Col>
       </Row>
 
@@ -42,12 +53,3 @@ export default MissionSummaryCard;
 
 
 
-const searchRowStyle = {
-  margin: '10px 0px 0px 0px',
-  alignContent: 'right'
-};
-
-const filterRowStyle = {
-  margin: '10px 13px 0px 0px',
-  alignContent: 'right'
-};
