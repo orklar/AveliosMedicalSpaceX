@@ -25,7 +25,7 @@ const MissionSummaryCard = ({ result }: { result: LaunchInfoInterface }) => {
         </Col>
       </Row>
 
-      <h3 className={styles.h3}>Mission successful: {String(LaunchInfo.launch_success)}</h3>
+      <h3 className={styles.h3}>Mission successful: {LaunchInfo.launch_success ? "Yes" : "No"}</h3>
       <h3 className={styles.h3}>Site Name: {LaunchInfo.launch_site.site_name}</h3>
 
       <Row justify="end">
