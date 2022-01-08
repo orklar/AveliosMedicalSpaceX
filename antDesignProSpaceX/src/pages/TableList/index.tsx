@@ -22,7 +22,7 @@ const handleAdd = async (fields: API.RuleListItem) => {
   try {
     await addRule({ ...fields });
     hide();
-    message.success('Added successfully');
+    message.success('Added successfuly');
     return true;
   } catch (error) {
     hide();
@@ -70,7 +70,7 @@ const handleRemove = async (selectedRows: API.RuleListItem[]) => {
       key: selectedRows.map((row) => row.key),
     });
     hide();
-    message.success('Deleted successfully and will refresh soon');
+    message.success('Deleted successfuly and will refresh soon');
     return true;
   } catch (error) {
     hide();

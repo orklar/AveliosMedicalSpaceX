@@ -20,7 +20,7 @@
   },
   {
     path: '/welcome',
-    name: 'welcome',
+    name: 'SpaceX Launches',
     icon: 'smile',
     component: './Welcome',
   },

@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Typography, Row, Col, Input, InputNumber, Button } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
 import styles from './SearchBox.less';
-
-const CodePreview: React.FC = ({ children }) => (
-  <pre className={styles.pre}>
-    <code>
-      <Typography.Text copyable>{children}</Typography.Text>
-    </code>
-  </pre>
-);
 
 
 const SearchBox: React.FC = ({ setFilterCount, setFilterText, setIsSubmitted }:
   { setFilterCount: any, setFilterText: any, setIsSubmitted: any }) => {
-  const intl = useIntl();
 
   const [_filterCount, _setFilterCount] = useState(5);
   const [_filterText, _setFilterText] = useState("");

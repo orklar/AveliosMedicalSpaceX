@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Collapse, Modal, Carousel, Image, Divider, Row, Col } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
+import { Button, Collapse, Modal, Divider, Row, Col } from 'antd';
 import type LaunchInfoInterface from '../LaunchInfoInterface';
 
 
@@ -8,9 +7,7 @@ const { Panel } = Collapse;
 
 const DetailModal = ({ launchInfoInterface }: { launchInfoInterface: LaunchInfoInterface }) => {
   const launchInfo = launchInfoInterface;
-  const intl = useIntl();
 
-  const onSearch = value => console.log(value);
 
   const [visible, setVisible] = useState(false);
 
@@ -33,9 +30,9 @@ const DetailModal = ({ launchInfoInterface }: { launchInfoInterface: LaunchInfoI
         <Row justify="center">
           <Col>
             {launchInfo.links.flickr_images.length < 1 ?
-              <img src={"https://live.staticflickr.com/65535/50631642722_3af8131c6f_o.jpg"} alt={"asdf"} width="300px" height="400px" />
+              <img src={"https://live.staticflickr.com/65535/50631642722_3af8131c6f_o.jpg"} alt={"Rocket Image"} width="300px" height="400px" />
               :
-              <img src={launchInfo.links.flickr_images[0]} alt={"asdf"} width="300px" height="400px" />}
+              <img src={launchInfo.links.flickr_images[0]} alt={"Rocket Image"} width="300px" height="400px" />}
           </Col>
           <Col>
             {launchInfo.links.mission_patch ?
@@ -44,7 +41,7 @@ const DetailModal = ({ launchInfoInterface }: { launchInfoInterface: LaunchInfoI
               (
                 launchInfo.links.flickr_images.length < 2 ? <></> :
                   <img src={launchInfo.links.flickr_images[1]}
-                    alt={"asdf"} width="300px" height="400px" />)}
+                    alt={"Rocket Image"} width="300px" height="400px" />)}
             :
           </Col>
         </Row>
@@ -54,7 +51,7 @@ const DetailModal = ({ launchInfoInterface }: { launchInfoInterface: LaunchInfoI
 
         <Collapse accordion>
           <Panel header="Launch Informations" key="1">
-            <h3>{launchInfo.launch_success ? "Launch was successfull!" : "Launch was unsuccessfull!"}</h3>
+            <h3>{launchInfo.launch_success ? "Launch was successful!" : "Launch was unsuccessful!"}</h3>
             <h3>Local Launch Date: {launchInfo.launch_date_local}</h3>
             <h3>Full Site Name: {launchInfo.launch_site.site_name_long}</h3>
           </Panel>
@@ -79,7 +76,3 @@ const DetailModal = ({ launchInfoInterface }: { launchInfoInterface: LaunchInfoI
 
 export default DetailModal;
 
-const contentStyle = {
-  textAlign: 'center',
-  alignContent: 'center'
-};
