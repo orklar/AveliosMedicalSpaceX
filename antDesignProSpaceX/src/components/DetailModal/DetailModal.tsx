@@ -60,9 +60,9 @@ const DetailModal = ({ launchInfoInterface }: { launchInfoInterface: LaunchInfoI
             <h3>Rocket Type: {launchInfo.rocket.rocket_type}</h3>
           </Panel>
           <Panel header="Links" key="3">
-            <h3> <a href="Wikipedia">{launchInfo.links.wikipedia}</a> </h3>
-            <h3> <a href="Reddit Campaign">{launchInfo.links.reddit_campaign}</a> </h3>
-            <h3> <a href="Reddit Launch">{launchInfo.links.reddit_launch}</a> </h3>
+            <h3> <a href={launchInfo.links.wikipedia}>Wikipedia</a> </h3>
+            <h3> <a href={launchInfo.links.reddit_campaign}>Reddit Campaign</a> </h3>
+            <h3> <a href={launchInfo.links.reddit_launch}>Reddit Launch</a> </h3>
 
           </Panel>
         </Collapse>
